@@ -10,9 +10,11 @@ import java.util.Scanner;
 
 public class ProductView {
 
-    private final IProductService productService = new ProductServiceImpl();
+    private final IProductService productService;
     private final Scanner sc = new Scanner(System.in);
-
+    public ProductView(IProductService productService) {
+        this.productService = productService;
+    }
     public void showProductManagement() {
         while (true) {
             System.out.println("\n========== QUẢN LÝ SẢN PHẨM ==========");
@@ -46,6 +48,9 @@ public class ProductView {
                 case 6:
                     deleteProduct();
                     break;
+                case 7:
+                    searchProductsInStock();
+                    break;
                 case 0:
                     return;
                 default:
@@ -53,7 +58,17 @@ public class ProductView {
             }
         }
     }
-
+    private void searchProductsInStock() {
+        System.out.print("Nhập từ khóa tìm sản phẩm còn hàng: ");
+        String keyword = sc.nextLine().trim();
+        List<Product> result = productService.searchByNameAndInStock(keyword);
+        if (result.isEmpty()) {
+            System.out.println("Không tìm thấy sản phẩm nào còn hàng phù hợp!");
+        } else {
+            System.out.println("Kết quả sản phẩm còn hàng:");
+            printProductTable(result);
+        }
+    }
     private void displayAllProducts() {
         List<Product> products = productService.getAllProducts();
         printProductTable(products);

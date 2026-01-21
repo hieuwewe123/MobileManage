@@ -26,4 +26,5 @@ public interface IProductDAO {
 
     // Lấy sản phẩm theo ID
     Product getProductById(int id);
+    List<Product> searchByNameAndInStock(String keyword);
 }

@@ -13,6 +13,9 @@ public class ProductServiceImpl implements IProductService {
 
     private final IProductDAO productDAO = new ProductDAOImpl();
 
+    public ProductServiceImpl(ProductDAOImpl productDAO) {
+    }
+
     @Override
     public List<Product> getAllProducts() {
         return productDAO.getAllProducts();
@@ -63,5 +66,15 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product findById(int id) {
         return productDAO.getProductById(id);
+    }
+    @Override
+    public List<Product> searchByNameAndInStock(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            // Nếu không nhập từ khóa → trả tất cả còn hàng
+            return productDAO.getAllProducts().stream()
+                    .filter(p -> p.getStock() > 0)
+                    .toList();
+        }
+        return productDAO.searchByNameAndInStock(keyword.trim());
     }
 }

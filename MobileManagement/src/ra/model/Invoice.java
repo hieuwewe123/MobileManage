@@ -8,7 +8,7 @@ public class Invoice {
     private int customerId;
     private LocalDateTime createdAt;
     private BigDecimal totalAmount;
-
+    private String customerName;
     public Invoice() {
     }
 
@@ -18,7 +18,8 @@ public class Invoice {
         this.createdAt = createdAt;
         this.totalAmount = totalAmount;
     }
-
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
     public int getId() {
         return id;
     }

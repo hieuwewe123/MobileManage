@@ -220,7 +220,25 @@ public class ProductDAOImpl implements IProductDAO {
         }
         return null;
     }
+    @Override
+    public List<Product> searchByNameAndInStock(String keyword) {
+        List<Product> products = new ArrayList<>();
+        String sql = "{call search_products_by_name_and_in_stock(?)}";
 
+        try (Connection conn = DBUtil.openConnection();
+             CallableStatement call = conn.prepareCall(sql)) {
+
+            call.setString(1, keyword != null ? keyword.trim() : "");
+            try (ResultSet rs = call.executeQuery()) {
+                while (rs.next()) {
+                    products.add(mapRowToProduct(rs));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi tìm kiếm sản phẩm còn hàng: " + e.getMessage());
+        }
+        return products;
+    }
     private Product mapRowToProduct(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("id"),

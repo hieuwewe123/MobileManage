@@ -13,6 +13,6 @@ public interface IProductService {
     boolean addNewProduct(Product product);
     boolean updateProduct(Product product);
     boolean deleteProduct(int id);
-
+    List<Product> searchByNameAndInStock(String keyword);
     Product findById(int id);
 }
