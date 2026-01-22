@@ -400,3 +400,71 @@ BEGIN
         ORDER BY i.created_at DESC;
 END;
 $$;
+-- Thống kê tổng doanh thu theo ngày
+CREATE OR REPLACE FUNCTION get_revenue_by_day()
+    RETURNS TABLE (
+                      ngay DATE,
+                      tong_doanh_thu DECIMAL(12,2)
+                  ) LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+        SELECT DATE(i.created_at) AS ngay,
+               SUM(i.total_amount) AS tong_doanh_thu
+        FROM invoice i
+        GROUP BY DATE(i.created_at)
+        ORDER BY ngay DESC;
+END;
+$$;
+
+-- Thống kê tổng doanh thu theo tháng
+CREATE OR REPLACE FUNCTION get_revenue_by_month()
+    RETURNS TABLE (
+                      thang TEXT,
+                      tong_doanh_thu DECIMAL(12,2)
+                  ) LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+        SELECT TO_CHAR(i.created_at, 'YYYY-MM') AS thang,
+               SUM(i.total_amount) AS tong_doanh_thu
+        FROM invoice i
+        GROUP BY TO_CHAR(i.created_at, 'YYYY-MM')
+        ORDER BY thang DESC;
+END;
+$$;
+
+-- Thống kê tổng doanh thu theo năm
+CREATE OR REPLACE FUNCTION get_revenue_by_year()
+    RETURNS TABLE (
+                      nam TEXT,
+                      tong_doanh_thu DECIMAL(12,2)
+                  ) LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+        SELECT TO_CHAR(i.created_at, 'YYYY') AS nam,
+               SUM(i.total_amount) AS tong_doanh_thu
+        FROM invoice i
+        GROUP BY TO_CHAR(i.created_at, 'YYYY')
+        ORDER BY nam DESC;
+END;
+$$;
+
+-- Tìm kiếm hóa đơn theo ngày/tháng/năm (gần đúng)
+CREATE OR REPLACE FUNCTION search_invoices_by_date(p_date_str VARCHAR)
+    RETURNS TABLE (
+                      id INTEGER,
+                      customer_id INTEGER,
+                      customer_name VARCHAR(100),
+                      created_at TIMESTAMP,
+                      total_amount DECIMAL(12,2)
+                  ) LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+        SELECT i.id, i.customer_id, c.name AS customer_name, i.created_at, i.total_amount
+        FROM invoice i
+                 JOIN customer c ON i.customer_id = c.id
+        WHERE TO_CHAR(i.created_at, 'YYYY-MM-DD') ILIKE '%' || COALESCE(p_date_str, '') || '%'
+           OR TO_CHAR(i.created_at, 'YYYY-MM') ILIKE '%' || COALESCE(p_date_str, '') || '%'
+           OR TO_CHAR(i.created_at, 'YYYY') ILIKE '%' || COALESCE(p_date_str, '') || '%'
+        ORDER BY i.created_at DESC;
+END;
+$$;

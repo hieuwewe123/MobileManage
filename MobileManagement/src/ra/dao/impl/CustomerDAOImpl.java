@@ -70,7 +70,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
             cs.execute();
             return true;
         } catch (SQLException e) {
-            System.err.println("Lỗi thêm khách hàng: " + e.getMessage());
+//            System.err.println("Lỗi thêm khách hàng: " + e.getMessage());
             return false;
         }
     }
@@ -104,7 +104,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
             cs.execute();
             return true;
         } catch (SQLException e) {
-            System.err.println("Lỗi xóa khách hàng: " + e.getMessage());
+//            System.err.println("Lỗi xóa khách hàng: " + e.getMessage());
             return false;
         }
     }

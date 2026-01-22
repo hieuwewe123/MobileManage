@@ -36,7 +36,7 @@ public class Main {
             System.out.println("=====================================");
             System.out.println("1. Quản lý sản phẩm");
             System.out.println("2. Quản lý khách hàng");
-            System.out.println("3. Quản lý hóa đơn (chưa triển khai)");
+            System.out.println("3. Quản lý hóa đơn");
             System.out.println("0. Thoát chương trình");
             System.out.print("Nhập lựa chọn: ");
 

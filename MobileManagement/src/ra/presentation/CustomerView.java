@@ -131,7 +131,7 @@ public class CustomerView {
             if (customerService.deleteCustomer(id)) {
                 System.out.println("→ Xóa thành công!");
             } else {
-                System.out.println("→ Xóa thất bại!");
+                System.out.println("→ Xóa thất bại! Khách hàng này đã có hóa đơn, không thể xóa để bảo toàn dữ liệu lịch sử.");
             }
         } else {
             System.out.println("Đã hủy xóa.");
