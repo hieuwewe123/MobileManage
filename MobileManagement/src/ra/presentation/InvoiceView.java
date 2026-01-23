@@ -49,7 +49,6 @@ public class InvoiceView {
         int newInvoiceId = invoiceService.createInvoice(customerId, totalAmount);
         if (newInvoiceId > 0) {
             System.out.println("→ Thêm hóa đơn thành công! ID hóa đơn mới: " + newInvoiceId);
-            // Bạn có thể mở rộng thêm phần nhập chi tiết sản phẩm ở đây nếu muốn
         } else {
             System.out.println("→ Thêm hóa đơn thất bại! Kiểm tra ID khách hàng hoặc dữ liệu.");
         }
