@@ -89,24 +89,7 @@ public class InvoiceView {
         }
     }
 
-    private void statisticRevenue() {
-        System.out.println("\n--- THỐNG KÊ DOANH THU ---");
 
-        // Theo ngày
-        System.out.println("TỔNG DOANH THU THEO TẤT CẢ CÁC NGÀY:");
-        List<Map<String, Object>> byDay = invoiceService.getRevenueByDay();
-        printRevenueTable(byDay, "Ngày", "ngay");
-
-        // Theo tháng
-        System.out.println("\nTỔNG DOANH THU THEO TẤT CẢ CÁC THÁNG:");
-        List<Map<String, Object>> byMonth = invoiceService.getRevenueByMonth();
-        printRevenueTable(byMonth, "Tháng", "thang");
-
-        // Theo năm
-        System.out.println("\nTỔNG DOANH THU THEO TẤT CẢ CÁC NĂM:");
-        List<Map<String, Object>> byYear = invoiceService.getRevenueByYear();
-        printRevenueTable(byYear, "Năm", "nam");
-    }
 
     // Hiển thị bảng hóa đơn (định dạng như mô tả)
     private void printInvoiceTable(List<Invoice> invoices, String title) {
