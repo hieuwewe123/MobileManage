@@ -6,6 +6,7 @@ import ra.dao.impl.ProductDAOImpl;
 import ra.business.impl.CustomerServiceImpl;
 import ra.business.impl.ProductServiceImpl;
 import ra.business.impl.InvoiceServiceImpl;
+import ra.business.IProductService;
 import ra.presentation.CustomerView;
 import ra.presentation.InvoiceView;
 import ra.presentation.ProductView;
@@ -17,9 +18,10 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static final AdminService adminService = new AdminService(new AdminDAOImpl());
 
-    private static final ProductView productView = new ProductView(new ProductServiceImpl(new ProductDAOImpl()));
+    private static final IProductService productService = new ProductServiceImpl(new ProductDAOImpl());
+    private static final ProductView productView = new ProductView(productService);
     private static final CustomerView customerView = new CustomerView(new CustomerServiceImpl(new CustomerDAOImpl()));
-    private static final InvoiceView invoiceView = new InvoiceView(new InvoiceServiceImpl());
+    private static final InvoiceView invoiceView = new InvoiceView(new InvoiceServiceImpl(productService), productService);
 
     public static void main(String[] args) {
         showStartMenu();

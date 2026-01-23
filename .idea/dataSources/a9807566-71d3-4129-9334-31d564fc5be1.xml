@@ -3,9 +3,8 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>823</IntrospectionStateNumber>
       <ServerVersion>18.0</ServerVersion>
-      <StartupTime>1768987098</StartupTime>
+      <StartupTime>1769166932</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -802,7 +801,6 @@ false Zulu
 14860||10|C|G
 14860||-9223372036854775808|U|G
 14860||10|U|G</Grants>
-      <IntrospectionStateNumber>792</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -816,7 +814,6 @@ false Zulu
 14860||10|C|G
 14860||-9223372036854775808|U|G
 14860||10|U|G</Grants>
-      <IntrospectionStateNumber>823</IntrospectionStateNumber>
       <ObjectId>16388</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4332,9 +4329,6 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>792</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>792</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>792</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
       <LastIntrospectionLocalTimestamp>2026-01-21.09:22:38</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
@@ -7783,9 +7777,6 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>823</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>823</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>823</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
       <LastIntrospectionLocalTimestamp>2026-01-21.09:29:47</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
@@ -8014,24 +8005,24 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </table>
     <routine id="546" parent="522" name="add_invoice">
-      <ArgumentsDefinition>p_customer_id integer, p_total_amount numeric</ArgumentsDefinition>
+      <ArgumentsDefinition>p_customer_id integer</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16571</ObjectId>
+      <ObjectId>16587</ObjectId>
       <ResultsDefinition>integer</ResultsDefinition>
       <Rows>0.0</Rows>
-      <SourceTextLength>185</SourceTextLength>
-      <StateNumber>826</StateNumber>
+      <SourceTextLength>316</SourceTextLength>
+      <StateNumber>899</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
     <routine id="547" parent="522" name="add_invoice_detail">
       <ArgumentsDefinition>IN p_invoice_id integer, IN p_product_id integer, IN p_quantity integer, IN p_unit_price numeric</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16572</ObjectId>
+      <ObjectId>16588</ObjectId>
       <PgRoutineKind>pg-procedure</PgRoutineKind>
       <Rows>0.0</Rows>
-      <SourceTextLength>404</SourceTextLength>
-      <StateNumber>827</StateNumber>
+      <SourceTextLength>868</SourceTextLength>
+      <StateNumber>900</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
@@ -8057,7 +8048,18 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="550" parent="522" name="check_admin_login">
+    <routine id="550" parent="522" name="after_delete_invoice_detail">
+      <DetailsLevel>3</DetailsLevel>
+      <ObjectId>16595</ObjectId>
+      <PgRoutineKind>pg-trigger</PgRoutineKind>
+      <ResultsDefinition>trigger</ResultsDefinition>
+      <Rows>0.0</Rows>
+      <SourceTextLength>347</SourceTextLength>
+      <StateNumber>907</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <routine id="551" parent="522" name="check_admin_login">
       <ArgumentsDefinition>p_username character varying, p_password character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16570</ObjectId>
@@ -8068,7 +8070,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="551" parent="522" name="delete_customer">
+    <routine id="552" parent="522" name="delete_customer">
       <ArgumentsDefinition>IN p_id integer</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16569</ObjectId>
@@ -8079,7 +8081,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="552" parent="522" name="delete_product">
+    <routine id="553" parent="522" name="delete_product">
       <ArgumentsDefinition>IN p_id integer</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16563</ObjectId>
@@ -8090,7 +8092,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="553" parent="522" name="get_all_customers">
+    <routine id="554" parent="522" name="get_all_customers">
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16576</ObjectId>
       <ResultsDefinition>TABLE(id integer, name character varying, phone character varying, email character varying, address character varying)</ResultsDefinition>
@@ -8100,17 +8102,17 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="554" parent="522" name="get_all_invoices">
+    <routine id="555" parent="522" name="get_all_invoices">
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16573</ObjectId>
-      <ResultsDefinition>TABLE(id integer, customer_id integer, customer_name character varying, created_at timestamp without time zone, total_amount numeric)</ResultsDefinition>
+      <ObjectId>16589</ObjectId>
+      <ResultsDefinition>TABLE(id integer, customer_id integer, created_at timestamp without time zone, total_amount numeric, customer_name character varying)</ResultsDefinition>
       <ReturnsSet>1</ReturnsSet>
-      <SourceTextLength>235</SourceTextLength>
-      <StateNumber>828</StateNumber>
+      <SourceTextLength>292</SourceTextLength>
+      <StateNumber>901</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="555" parent="522" name="get_all_products">
+    <routine id="556" parent="522" name="get_all_products">
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16558</ObjectId>
       <ResultsDefinition>TABLE(id integer, name character varying, brand character varying, price numeric, stock integer)</ResultsDefinition>
@@ -8120,7 +8122,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="556" parent="522" name="get_customer_by_id">
+    <routine id="557" parent="522" name="get_customer_by_id">
       <ArgumentsDefinition>p_id integer</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16578</ObjectId>
@@ -8131,7 +8133,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="557" parent="522" name="get_products_by_price_range">
+    <routine id="558" parent="522" name="get_products_by_price_range">
       <ArgumentsDefinition>p_min numeric, p_max numeric</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16560</ObjectId>
@@ -8142,37 +8144,37 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="558" parent="522" name="get_revenue_by_day">
+    <routine id="559" parent="522" name="get_revenue_by_day">
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16579</ObjectId>
+      <ObjectId>16592</ObjectId>
       <ResultsDefinition>TABLE(ngay date, tong_doanh_thu numeric)</ResultsDefinition>
       <ReturnsSet>1</ReturnsSet>
-      <SourceTextLength>212</SourceTextLength>
-      <StateNumber>854</StateNumber>
+      <SourceTextLength>221</SourceTextLength>
+      <StateNumber>904</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="559" parent="522" name="get_revenue_by_month">
+    <routine id="560" parent="522" name="get_revenue_by_month">
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16580</ObjectId>
-      <ResultsDefinition>TABLE(thang text, tong_doanh_thu numeric)</ResultsDefinition>
+      <ObjectId>16593</ObjectId>
+      <ResultsDefinition>TABLE(thang character varying, tong_doanh_thu numeric)</ResultsDefinition>
       <ReturnsSet>1</ReturnsSet>
-      <SourceTextLength>242</SourceTextLength>
-      <StateNumber>855</StateNumber>
+      <SourceTextLength>251</SourceTextLength>
+      <StateNumber>905</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="560" parent="522" name="get_revenue_by_year">
+    <routine id="561" parent="522" name="get_revenue_by_year">
       <DetailsLevel>3</DetailsLevel>
-      <ObjectId>16581</ObjectId>
-      <ResultsDefinition>TABLE(nam text, tong_doanh_thu numeric)</ResultsDefinition>
+      <ObjectId>16594</ObjectId>
+      <ResultsDefinition>TABLE(nam character varying, tong_doanh_thu numeric)</ResultsDefinition>
       <ReturnsSet>1</ReturnsSet>
-      <SourceTextLength>232</SourceTextLength>
-      <StateNumber>856</StateNumber>
+      <SourceTextLength>241</SourceTextLength>
+      <StateNumber>906</StateNumber>
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="561" parent="522" name="search_customers">
+    <routine id="562" parent="522" name="search_customers">
       <ArgumentsDefinition>p_keyword character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16577</ObjectId>
@@ -8183,7 +8185,18 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="562" parent="522" name="search_invoices_by_customer">
+    <routine id="563" parent="522" name="search_invoices_by_customer">
+      <ArgumentsDefinition>p_keyword text</ArgumentsDefinition>
+      <DetailsLevel>3</DetailsLevel>
+      <ObjectId>16590</ObjectId>
+      <ResultsDefinition>TABLE(id integer, customer_id integer, created_at timestamp without time zone, total_amount numeric, customer_name character varying)</ResultsDefinition>
+      <ReturnsSet>1</ReturnsSet>
+      <SourceTextLength>356</SourceTextLength>
+      <StateNumber>902</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <routine id="564" parent="522" name="search_invoices_by_customer">
       <ArgumentsDefinition>p_keyword character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16574</ObjectId>
@@ -8194,7 +8207,18 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="563" parent="522" name="search_invoices_by_date">
+    <routine id="565" parent="522" name="search_invoices_by_date">
+      <ArgumentsDefinition>p_date_str text</ArgumentsDefinition>
+      <DetailsLevel>3</DetailsLevel>
+      <ObjectId>16591</ObjectId>
+      <ResultsDefinition>TABLE(id integer, customer_id integer, created_at timestamp without time zone, total_amount numeric, customer_name character varying)</ResultsDefinition>
+      <ReturnsSet>1</ReturnsSet>
+      <SourceTextLength>482</SourceTextLength>
+      <StateNumber>903</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <routine id="566" parent="522" name="search_invoices_by_date">
       <ArgumentsDefinition>p_date_str character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16582</ObjectId>
@@ -8205,7 +8229,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="564" parent="522" name="search_products_by_keyword">
+    <routine id="567" parent="522" name="search_products_by_keyword">
       <ArgumentsDefinition>p_keyword character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16559</ObjectId>
@@ -8216,7 +8240,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="565" parent="522" name="search_products_by_name_and_in_stock">
+    <routine id="568" parent="522" name="search_products_by_name_and_in_stock">
       <ArgumentsDefinition>p_keyword character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16564</ObjectId>
@@ -8227,7 +8251,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="566" parent="522" name="update_customer">
+    <routine id="569" parent="522" name="update_customer">
       <ArgumentsDefinition>IN p_id integer, IN p_name character varying, IN p_phone character varying, IN p_email character varying, IN p_address character varying</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16568</ObjectId>
@@ -8238,7 +8262,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="567" parent="522" name="update_product">
+    <routine id="570" parent="522" name="update_product">
       <ArgumentsDefinition>IN p_id integer, IN p_name character varying, IN p_brand character varying, IN p_price numeric, IN p_stock integer</ArgumentsDefinition>
       <DetailsLevel>3</DetailsLevel>
       <ObjectId>16562</ObjectId>
@@ -8249,7 +8273,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <sequence id="568" parent="522" name="admin_id_seq">
+    <sequence id="571" parent="522" name="admin_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16480</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -8258,7 +8282,7 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="569" parent="522" name="customer_id_seq">
+    <sequence id="572" parent="522" name="customer_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16506</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -8267,7 +8291,7 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="570" parent="522" name="invoice_detail_id_seq">
+    <sequence id="573" parent="522" name="invoice_detail_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16534</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -8276,7 +8300,7 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="571" parent="522" name="invoice_id_seq">
+    <sequence id="574" parent="522" name="invoice_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16517</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -8285,7 +8309,7 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="572" parent="522" name="product_id_seq">
+    <sequence id="575" parent="522" name="product_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16492</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -8294,178 +8318,178 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="573" parent="522" name="admin">
+    <table id="576" parent="522" name="admin">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16481</ObjectId>
       <StateNumber>799</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="574" parent="522" name="customer">
+    <table id="577" parent="522" name="customer">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16507</ObjectId>
       <StateNumber>802</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="575" parent="522" name="invoice">
+    <table id="578" parent="522" name="invoice">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16518</ObjectId>
       <StateNumber>802</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="576" parent="522" name="invoice_detail">
+    <table id="579" parent="522" name="invoice_detail">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16535</ObjectId>
       <StateNumber>803</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="577" parent="522" name="product">
+    <table id="580" parent="522" name="product">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16493</ObjectId>
       <StateNumber>803</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <argument id="578" parent="523" name="p_name">
+    <argument id="581" parent="523" name="p_name">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="579" parent="523" name="p_phone">
+    <argument id="582" parent="523" name="p_phone">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="580" parent="523" name="p_email">
+    <argument id="583" parent="523" name="p_email">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="581" parent="523" name="p_address">
+    <argument id="584" parent="523" name="p_address">
       <Position>4</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="582" parent="524" name="p_name">
+    <argument id="585" parent="524" name="p_name">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="583" parent="524" name="p_brand">
+    <argument id="586" parent="524" name="p_brand">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="584" parent="524" name="p_price">
+    <argument id="587" parent="524" name="p_price">
       <Position>3</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="585" parent="524" name="p_stock">
+    <argument id="588" parent="524" name="p_stock">
       <Position>4</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="586" parent="525">
+    <argument id="589" parent="525">
       <ArgumentDirection>R</ArgumentDirection>
       <StoredType>boolean|0s</StoredType>
     </argument>
-    <argument id="587" parent="525" name="p_username">
+    <argument id="590" parent="525" name="p_username">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="588" parent="525" name="p_password">
+    <argument id="591" parent="525" name="p_password">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="589" parent="526" name="p_id">
+    <argument id="592" parent="526" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="590" parent="527" name="p_id">
+    <argument id="593" parent="527" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="591" parent="528">
+    <argument id="594" parent="528">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;phone&quot; varchar, &quot;email&quot; varchar, &quot;address&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="592" parent="529">
+    <argument id="595" parent="529">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="593" parent="530">
+    <argument id="596" parent="530">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="594" parent="530" name="p_min">
+    <argument id="597" parent="530" name="p_min">
       <Position>1</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="595" parent="530" name="p_max">
+    <argument id="598" parent="530" name="p_max">
       <Position>2</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="596" parent="531">
+    <argument id="599" parent="531">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;phone&quot; varchar, &quot;email&quot; varchar, &quot;address&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="597" parent="531" name="p_keyword">
+    <argument id="600" parent="531" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="598" parent="532">
+    <argument id="601" parent="532">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="599" parent="532" name="p_keyword">
+    <argument id="602" parent="532" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="600" parent="533">
+    <argument id="603" parent="533">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="601" parent="533" name="p_keyword">
+    <argument id="604" parent="533" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="602" parent="534" name="p_id">
+    <argument id="605" parent="534" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="603" parent="534" name="p_name">
+    <argument id="606" parent="534" name="p_name">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="604" parent="534" name="p_phone">
+    <argument id="607" parent="534" name="p_phone">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="605" parent="534" name="p_email">
+    <argument id="608" parent="534" name="p_email">
       <Position>4</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="606" parent="534" name="p_address">
+    <argument id="609" parent="534" name="p_address">
       <Position>5</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="607" parent="535" name="p_id">
+    <argument id="610" parent="535" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="608" parent="535" name="p_name">
+    <argument id="611" parent="535" name="p_name">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="609" parent="535" name="p_brand">
+    <argument id="612" parent="535" name="p_brand">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="610" parent="535" name="p_price">
+    <argument id="613" parent="535" name="p_price">
       <Position>4</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="611" parent="535" name="p_stock">
+    <argument id="614" parent="535" name="p_stock">
       <Position>5</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <column id="612" parent="541" name="id">
+    <column id="615" parent="541" name="id">
       <DefaultExpression>nextval(&apos;admin_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -8474,21 +8498,21 @@ false Zulu
       <SequenceId>16389</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="613" parent="541" name="username">
+    <column id="616" parent="541" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>770</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="614" parent="541" name="password">
+    <column id="617" parent="541" name="password">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>770</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="615" parent="541" name="admin_pkey">
+    <index id="618" parent="541" name="admin_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16397</ObjectId>
@@ -8497,7 +8521,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="616" parent="541" name="admin_username_key">
+    <index id="619" parent="541" name="admin_username_key">
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16399</ObjectId>
@@ -8508,20 +8532,20 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="617" parent="541" name="admin_pkey">
+    <key id="620" parent="541" name="admin_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16398</ObjectId>
       <Primary>1</Primary>
       <StateNumber>770</StateNumber>
       <UnderlyingIndexId>16397</UnderlyingIndexId>
     </key>
-    <key id="618" parent="541" name="admin_username_key">
+    <key id="621" parent="541" name="admin_username_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16400</ObjectId>
       <StateNumber>770</StateNumber>
       <UnderlyingIndexId>16399</UnderlyingIndexId>
     </key>
-    <column id="619" parent="542" name="id">
+    <column id="622" parent="542" name="id">
       <DefaultExpression>nextval(&apos;customer_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -8530,32 +8554,32 @@ false Zulu
       <SequenceId>16415</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="620" parent="542" name="name">
+    <column id="623" parent="542" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>772</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="621" parent="542" name="phone">
+    <column id="624" parent="542" name="phone">
       <Position>3</Position>
       <StateNumber>772</StateNumber>
       <StoredType>varchar(20)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="622" parent="542" name="email">
+    <column id="625" parent="542" name="email">
       <Position>4</Position>
       <StateNumber>772</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="623" parent="542" name="address">
+    <column id="626" parent="542" name="address">
       <Position>5</Position>
       <StateNumber>772</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="624" parent="542" name="customer_pkey">
+    <index id="627" parent="542" name="customer_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16422</ObjectId>
@@ -8564,7 +8588,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="625" parent="542" name="customer_email_key">
+    <index id="628" parent="542" name="customer_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16424</ObjectId>
@@ -8575,26 +8599,26 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="626" parent="542" name="customer_pkey">
+    <key id="629" parent="542" name="customer_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16423</ObjectId>
       <Primary>1</Primary>
       <StateNumber>772</StateNumber>
       <UnderlyingIndexId>16422</UnderlyingIndexId>
     </key>
-    <key id="627" parent="542" name="customer_email_key">
+    <key id="630" parent="542" name="customer_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16425</ObjectId>
       <StateNumber>772</StateNumber>
       <UnderlyingIndexId>16424</UnderlyingIndexId>
     </key>
-    <check id="628" parent="543" name="invoice_total_amount_check">
+    <check id="631" parent="543" name="invoice_total_amount_check">
       <ColNames>total_amount</ColNames>
       <ObjectId>16432</ObjectId>
       <Predicate>total_amount &gt;= (0)::numeric</Predicate>
       <StateNumber>773</StateNumber>
     </check>
-    <column id="629" parent="543" name="id">
+    <column id="632" parent="543" name="id">
       <DefaultExpression>nextval(&apos;invoice_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -8603,28 +8627,28 @@ false Zulu
       <SequenceId>16426</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="630" parent="543" name="customer_id">
+    <column id="633" parent="543" name="customer_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>773</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="631" parent="543" name="created_at">
+    <column id="634" parent="543" name="created_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>3</Position>
       <StateNumber>773</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="632" parent="543" name="total_amount">
+    <column id="635" parent="543" name="total_amount">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>773</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <foreign-key id="633" parent="543" name="fk_invoice_customer">
+    <foreign-key id="636" parent="543" name="fk_invoice_customer">
       <ColNames>customer_id</ColNames>
       <ObjectId>16438</ObjectId>
       <OnDelete>restrict</OnDelete>
@@ -8632,7 +8656,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16416</RefTableId>
     </foreign-key>
-    <index id="634" parent="543" name="invoice_pkey">
+    <index id="637" parent="543" name="invoice_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16436</ObjectId>
@@ -8641,26 +8665,26 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="635" parent="543" name="invoice_pkey">
+    <key id="638" parent="543" name="invoice_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16437</ObjectId>
       <Primary>1</Primary>
       <StateNumber>773</StateNumber>
       <UnderlyingIndexId>16436</UnderlyingIndexId>
     </key>
-    <check id="636" parent="544" name="invoice_detail_quantity_check">
+    <check id="639" parent="544" name="invoice_detail_quantity_check">
       <ColNames>quantity</ColNames>
       <ObjectId>16448</ObjectId>
       <Predicate>quantity &gt; 0</Predicate>
       <StateNumber>774</StateNumber>
     </check>
-    <check id="637" parent="544" name="invoice_detail_unit_price_check">
+    <check id="640" parent="544" name="invoice_detail_unit_price_check">
       <ColNames>unit_price</ColNames>
       <ObjectId>16449</ObjectId>
       <Predicate>unit_price &gt;= (0)::numeric</Predicate>
       <StateNumber>774</StateNumber>
     </check>
-    <column id="638" parent="544" name="id">
+    <column id="641" parent="544" name="id">
       <DefaultExpression>nextval(&apos;invoice_detail_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -8669,35 +8693,35 @@ false Zulu
       <SequenceId>16443</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="639" parent="544" name="invoice_id">
+    <column id="642" parent="544" name="invoice_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>774</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="640" parent="544" name="product_id">
+    <column id="643" parent="544" name="product_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>774</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="641" parent="544" name="quantity">
+    <column id="644" parent="544" name="quantity">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>774</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="642" parent="544" name="unit_price">
+    <column id="645" parent="544" name="unit_price">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>774</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <foreign-key id="643" parent="544" name="fk_detail_invoice">
+    <foreign-key id="646" parent="544" name="fk_detail_invoice">
       <ColNames>invoice_id</ColNames>
       <ObjectId>16457</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -8705,7 +8729,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16427</RefTableId>
     </foreign-key>
-    <foreign-key id="644" parent="544" name="fk_detail_product">
+    <foreign-key id="647" parent="544" name="fk_detail_product">
       <ColNames>product_id</ColNames>
       <ObjectId>16462</ObjectId>
       <OnDelete>restrict</OnDelete>
@@ -8713,7 +8737,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16402</RefTableId>
     </foreign-key>
-    <index id="645" parent="544" name="invoice_detail_pkey">
+    <index id="648" parent="544" name="invoice_detail_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16455</ObjectId>
@@ -8722,26 +8746,26 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="646" parent="544" name="invoice_detail_pkey">
+    <key id="649" parent="544" name="invoice_detail_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16456</ObjectId>
       <Primary>1</Primary>
       <StateNumber>774</StateNumber>
       <UnderlyingIndexId>16455</UnderlyingIndexId>
     </key>
-    <check id="647" parent="545" name="product_price_check">
+    <check id="650" parent="545" name="product_price_check">
       <ColNames>price</ColNames>
       <ObjectId>16406</ObjectId>
       <Predicate>price &gt;= (0)::numeric</Predicate>
       <StateNumber>771</StateNumber>
     </check>
-    <check id="648" parent="545" name="product_stock_check">
+    <check id="651" parent="545" name="product_stock_check">
       <ColNames>stock</ColNames>
       <ObjectId>16407</ObjectId>
       <Predicate>stock &gt;= 0</Predicate>
       <StateNumber>771</StateNumber>
     </check>
-    <column id="649" parent="545" name="id">
+    <column id="652" parent="545" name="id">
       <DefaultExpression>nextval(&apos;product_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -8750,35 +8774,35 @@ false Zulu
       <SequenceId>16401</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="650" parent="545" name="name">
+    <column id="653" parent="545" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>771</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="651" parent="545" name="brand">
+    <column id="654" parent="545" name="brand">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>771</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="652" parent="545" name="price">
+    <column id="655" parent="545" name="price">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>771</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <column id="653" parent="545" name="stock">
+    <column id="656" parent="545" name="stock">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>771</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="654" parent="545" name="product_pkey">
+    <index id="657" parent="545" name="product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16413</ObjectId>
@@ -8787,218 +8811,234 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="655" parent="545" name="product_pkey">
+    <key id="658" parent="545" name="product_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16414</ObjectId>
       <Primary>1</Primary>
       <StateNumber>771</StateNumber>
       <UnderlyingIndexId>16413</UnderlyingIndexId>
     </key>
-    <argument id="656" parent="546">
+    <argument id="659" parent="546">
       <ArgumentDirection>R</ArgumentDirection>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="657" parent="546" name="p_customer_id">
+    <argument id="660" parent="546" name="p_customer_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="658" parent="546" name="p_total_amount">
-      <Position>2</Position>
-      <StoredType>numeric|0s</StoredType>
-    </argument>
-    <argument id="659" parent="547" name="p_invoice_id">
+    <argument id="661" parent="547" name="p_invoice_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="660" parent="547" name="p_product_id">
+    <argument id="662" parent="547" name="p_product_id">
       <Position>2</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="661" parent="547" name="p_quantity">
+    <argument id="663" parent="547" name="p_quantity">
       <Position>3</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="662" parent="547" name="p_unit_price">
+    <argument id="664" parent="547" name="p_unit_price">
       <Position>4</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="663" parent="548" name="p_name">
+    <argument id="665" parent="548" name="p_name">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="664" parent="548" name="p_phone">
+    <argument id="666" parent="548" name="p_phone">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="665" parent="548" name="p_email">
+    <argument id="667" parent="548" name="p_email">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="666" parent="548" name="p_address">
+    <argument id="668" parent="548" name="p_address">
       <Position>4</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="667" parent="549" name="p_name">
+    <argument id="669" parent="549" name="p_name">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="668" parent="549" name="p_brand">
+    <argument id="670" parent="549" name="p_brand">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="669" parent="549" name="p_price">
+    <argument id="671" parent="549" name="p_price">
       <Position>3</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="670" parent="549" name="p_stock">
+    <argument id="672" parent="549" name="p_stock">
       <Position>4</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="671" parent="550">
+    <argument id="673" parent="550">
+      <ArgumentDirection>R</ArgumentDirection>
+      <StoredType>trigger|0s</StoredType>
+    </argument>
+    <argument id="674" parent="551">
       <ArgumentDirection>R</ArgumentDirection>
       <StoredType>boolean|0s</StoredType>
     </argument>
-    <argument id="672" parent="550" name="p_username">
+    <argument id="675" parent="551" name="p_username">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="673" parent="550" name="p_password">
+    <argument id="676" parent="551" name="p_password">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="674" parent="551" name="p_id">
+    <argument id="677" parent="552" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="675" parent="552" name="p_id">
+    <argument id="678" parent="553" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="676" parent="553">
+    <argument id="679" parent="554">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;phone&quot; varchar, &quot;email&quot; varchar, &quot;address&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="677" parent="554">
+    <argument id="680" parent="555">
       <ArgumentDirection>T</ArgumentDirection>
-      <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;customer_name&quot; varchar, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric)|0v</StoredType>
+      <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric, &quot;customer_name&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="678" parent="555">
+    <argument id="681" parent="556">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="679" parent="556">
+    <argument id="682" parent="557">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;phone&quot; varchar, &quot;email&quot; varchar, &quot;address&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="680" parent="556" name="p_id">
+    <argument id="683" parent="557" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
-    </argument>
-    <argument id="681" parent="557">
-      <ArgumentDirection>T</ArgumentDirection>
-      <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
-    </argument>
-    <argument id="682" parent="557" name="p_min">
-      <Position>1</Position>
-      <StoredType>numeric|0s</StoredType>
-    </argument>
-    <argument id="683" parent="557" name="p_max">
-      <Position>2</Position>
-      <StoredType>numeric|0s</StoredType>
     </argument>
     <argument id="684" parent="558">
       <ArgumentDirection>T</ArgumentDirection>
+      <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
+    </argument>
+    <argument id="685" parent="558" name="p_min">
+      <Position>1</Position>
+      <StoredType>numeric|0s</StoredType>
+    </argument>
+    <argument id="686" parent="558" name="p_max">
+      <Position>2</Position>
+      <StoredType>numeric|0s</StoredType>
+    </argument>
+    <argument id="687" parent="559">
+      <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;ngay&quot; date, &quot;tong_doanh_thu&quot; numeric)|0v</StoredType>
     </argument>
-    <argument id="685" parent="559">
+    <argument id="688" parent="560">
       <ArgumentDirection>T</ArgumentDirection>
-      <StoredType>table(&quot;thang&quot; text, &quot;tong_doanh_thu&quot; numeric)|0v</StoredType>
+      <StoredType>table(&quot;thang&quot; varchar, &quot;tong_doanh_thu&quot; numeric)|0v</StoredType>
     </argument>
-    <argument id="686" parent="560">
+    <argument id="689" parent="561">
       <ArgumentDirection>T</ArgumentDirection>
-      <StoredType>table(&quot;nam&quot; text, &quot;tong_doanh_thu&quot; numeric)|0v</StoredType>
+      <StoredType>table(&quot;nam&quot; varchar, &quot;tong_doanh_thu&quot; numeric)|0v</StoredType>
     </argument>
-    <argument id="687" parent="561">
+    <argument id="690" parent="562">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;phone&quot; varchar, &quot;email&quot; varchar, &quot;address&quot; varchar)|0v</StoredType>
     </argument>
-    <argument id="688" parent="561" name="p_keyword">
+    <argument id="691" parent="562" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="689" parent="562">
+    <argument id="692" parent="563">
+      <ArgumentDirection>T</ArgumentDirection>
+      <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric, &quot;customer_name&quot; varchar)|0v</StoredType>
+    </argument>
+    <argument id="693" parent="563" name="p_keyword">
+      <Position>1</Position>
+      <StoredType>text|0s</StoredType>
+    </argument>
+    <argument id="694" parent="564">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;customer_name&quot; varchar, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric)|0v</StoredType>
     </argument>
-    <argument id="690" parent="562" name="p_keyword">
+    <argument id="695" parent="564" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="691" parent="563">
+    <argument id="696" parent="565">
+      <ArgumentDirection>T</ArgumentDirection>
+      <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric, &quot;customer_name&quot; varchar)|0v</StoredType>
+    </argument>
+    <argument id="697" parent="565" name="p_date_str">
+      <Position>1</Position>
+      <StoredType>text|0s</StoredType>
+    </argument>
+    <argument id="698" parent="566">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;customer_id&quot; integer, &quot;customer_name&quot; varchar, &quot;created_at&quot; timestamp, &quot;total_amount&quot; numeric)|0v</StoredType>
     </argument>
-    <argument id="692" parent="563" name="p_date_str">
+    <argument id="699" parent="566" name="p_date_str">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="693" parent="564">
+    <argument id="700" parent="567">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="694" parent="564" name="p_keyword">
+    <argument id="701" parent="567" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="695" parent="565">
+    <argument id="702" parent="568">
       <ArgumentDirection>T</ArgumentDirection>
       <StoredType>table(&quot;id&quot; integer, &quot;name&quot; varchar, &quot;brand&quot; varchar, &quot;price&quot; numeric, &quot;stock&quot; integer)|0v</StoredType>
     </argument>
-    <argument id="696" parent="565" name="p_keyword">
+    <argument id="703" parent="568" name="p_keyword">
       <Position>1</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="697" parent="566" name="p_id">
+    <argument id="704" parent="569" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="698" parent="566" name="p_name">
+    <argument id="705" parent="569" name="p_name">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="699" parent="566" name="p_phone">
+    <argument id="706" parent="569" name="p_phone">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="700" parent="566" name="p_email">
+    <argument id="707" parent="569" name="p_email">
       <Position>4</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="701" parent="566" name="p_address">
+    <argument id="708" parent="569" name="p_address">
       <Position>5</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="702" parent="567" name="p_id">
+    <argument id="709" parent="570" name="p_id">
       <Position>1</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <argument id="703" parent="567" name="p_name">
+    <argument id="710" parent="570" name="p_name">
       <Position>2</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="704" parent="567" name="p_brand">
+    <argument id="711" parent="570" name="p_brand">
       <Position>3</Position>
       <StoredType>varchar|0s</StoredType>
     </argument>
-    <argument id="705" parent="567" name="p_price">
+    <argument id="712" parent="570" name="p_price">
       <Position>4</Position>
       <StoredType>numeric|0s</StoredType>
     </argument>
-    <argument id="706" parent="567" name="p_stock">
+    <argument id="713" parent="570" name="p_stock">
       <Position>5</Position>
       <StoredType>integer|0s</StoredType>
     </argument>
-    <column id="707" parent="573" name="id">
+    <column id="714" parent="576" name="id">
       <DefaultExpression>nextval(&apos;admin_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -9007,21 +9047,21 @@ false Zulu
       <SequenceId>16480</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="708" parent="573" name="username">
+    <column id="715" parent="576" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>799</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="709" parent="573" name="password">
+    <column id="716" parent="576" name="password">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>799</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="710" parent="573" name="admin_pkey">
+    <index id="717" parent="576" name="admin_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16488</ObjectId>
@@ -9030,7 +9070,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="711" parent="573" name="admin_username_key">
+    <index id="718" parent="576" name="admin_username_key">
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16490</ObjectId>
@@ -9041,20 +9081,20 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="712" parent="573" name="admin_pkey">
+    <key id="719" parent="576" name="admin_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16489</ObjectId>
       <Primary>1</Primary>
       <StateNumber>799</StateNumber>
       <UnderlyingIndexId>16488</UnderlyingIndexId>
     </key>
-    <key id="713" parent="573" name="admin_username_key">
+    <key id="720" parent="576" name="admin_username_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16491</ObjectId>
       <StateNumber>799</StateNumber>
       <UnderlyingIndexId>16490</UnderlyingIndexId>
     </key>
-    <column id="714" parent="574" name="id">
+    <column id="721" parent="577" name="id">
       <DefaultExpression>nextval(&apos;customer_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -9063,32 +9103,32 @@ false Zulu
       <SequenceId>16506</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="715" parent="574" name="name">
+    <column id="722" parent="577" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>801</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="716" parent="574" name="phone">
+    <column id="723" parent="577" name="phone">
       <Position>3</Position>
       <StateNumber>801</StateNumber>
       <StoredType>varchar(20)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="717" parent="574" name="email">
+    <column id="724" parent="577" name="email">
       <Position>4</Position>
       <StateNumber>801</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="718" parent="574" name="address">
+    <column id="725" parent="577" name="address">
       <Position>5</Position>
       <StateNumber>801</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="719" parent="574" name="customer_pkey">
+    <index id="726" parent="577" name="customer_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16513</ObjectId>
@@ -9097,7 +9137,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="720" parent="574" name="customer_email_key">
+    <index id="727" parent="577" name="customer_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16515</ObjectId>
@@ -9108,26 +9148,26 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="721" parent="574" name="customer_pkey">
+    <key id="728" parent="577" name="customer_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16514</ObjectId>
       <Primary>1</Primary>
       <StateNumber>801</StateNumber>
       <UnderlyingIndexId>16513</UnderlyingIndexId>
     </key>
-    <key id="722" parent="574" name="customer_email_key">
+    <key id="729" parent="577" name="customer_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16516</ObjectId>
       <StateNumber>801</StateNumber>
       <UnderlyingIndexId>16515</UnderlyingIndexId>
     </key>
-    <check id="723" parent="575" name="invoice_total_amount_check">
+    <check id="730" parent="578" name="invoice_total_amount_check">
       <ColNames>total_amount</ColNames>
       <ObjectId>16523</ObjectId>
       <Predicate>total_amount &gt;= (0)::numeric</Predicate>
       <StateNumber>802</StateNumber>
     </check>
-    <column id="724" parent="575" name="id">
+    <column id="731" parent="578" name="id">
       <DefaultExpression>nextval(&apos;invoice_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -9136,28 +9176,28 @@ false Zulu
       <SequenceId>16517</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="725" parent="575" name="customer_id">
+    <column id="732" parent="578" name="customer_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>802</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="726" parent="575" name="created_at">
+    <column id="733" parent="578" name="created_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>3</Position>
       <StateNumber>802</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="727" parent="575" name="total_amount">
+    <column id="734" parent="578" name="total_amount">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>802</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <foreign-key id="728" parent="575" name="fk_invoice_customer">
+    <foreign-key id="735" parent="578" name="fk_invoice_customer">
       <ColNames>customer_id</ColNames>
       <ObjectId>16529</ObjectId>
       <OnDelete>restrict</OnDelete>
@@ -9165,7 +9205,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16507</RefTableId>
     </foreign-key>
-    <index id="729" parent="575" name="invoice_pkey">
+    <index id="736" parent="578" name="invoice_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16527</ObjectId>
@@ -9174,26 +9214,26 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="730" parent="575" name="invoice_pkey">
+    <key id="737" parent="578" name="invoice_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16528</ObjectId>
       <Primary>1</Primary>
       <StateNumber>802</StateNumber>
       <UnderlyingIndexId>16527</UnderlyingIndexId>
     </key>
-    <check id="731" parent="576" name="invoice_detail_quantity_check">
+    <check id="738" parent="579" name="invoice_detail_quantity_check">
       <ColNames>quantity</ColNames>
       <ObjectId>16539</ObjectId>
       <Predicate>quantity &gt; 0</Predicate>
       <StateNumber>803</StateNumber>
     </check>
-    <check id="732" parent="576" name="invoice_detail_unit_price_check">
+    <check id="739" parent="579" name="invoice_detail_unit_price_check">
       <ColNames>unit_price</ColNames>
       <ObjectId>16540</ObjectId>
       <Predicate>unit_price &gt;= (0)::numeric</Predicate>
       <StateNumber>803</StateNumber>
     </check>
-    <column id="733" parent="576" name="id">
+    <column id="740" parent="579" name="id">
       <DefaultExpression>nextval(&apos;invoice_detail_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -9202,35 +9242,35 @@ false Zulu
       <SequenceId>16534</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="734" parent="576" name="invoice_id">
+    <column id="741" parent="579" name="invoice_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>803</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="735" parent="576" name="product_id">
+    <column id="742" parent="579" name="product_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>803</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="736" parent="576" name="quantity">
+    <column id="743" parent="579" name="quantity">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>803</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="737" parent="576" name="unit_price">
+    <column id="744" parent="579" name="unit_price">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>803</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <foreign-key id="738" parent="576" name="fk_detail_invoice">
+    <foreign-key id="745" parent="579" name="fk_detail_invoice">
       <ColNames>invoice_id</ColNames>
       <ObjectId>16548</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -9238,7 +9278,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16518</RefTableId>
     </foreign-key>
-    <foreign-key id="739" parent="576" name="fk_detail_product">
+    <foreign-key id="746" parent="579" name="fk_detail_product">
       <ColNames>product_id</ColNames>
       <ObjectId>16553</ObjectId>
       <OnDelete>restrict</OnDelete>
@@ -9246,7 +9286,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16493</RefTableId>
     </foreign-key>
-    <index id="740" parent="576" name="invoice_detail_pkey">
+    <index id="747" parent="579" name="invoice_detail_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16546</ObjectId>
@@ -9255,26 +9295,32 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="741" parent="576" name="invoice_detail_pkey">
+    <key id="748" parent="579" name="invoice_detail_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16547</ObjectId>
       <Primary>1</Primary>
       <StateNumber>803</StateNumber>
       <UnderlyingIndexId>16546</UnderlyingIndexId>
     </key>
-    <check id="742" parent="577" name="product_price_check">
+    <trigger id="749" parent="579" name="after_delete_invoice_detail">
+      <Events>D</Events>
+      <ObjectId>16596</ObjectId>
+      <StateNumber>908</StateNumber>
+      <CallRoutineId>16595</CallRoutineId>
+    </trigger>
+    <check id="750" parent="580" name="product_price_check">
       <ColNames>price</ColNames>
       <ObjectId>16497</ObjectId>
       <Predicate>price &gt;= (0)::numeric</Predicate>
       <StateNumber>800</StateNumber>
     </check>
-    <check id="743" parent="577" name="product_stock_check">
+    <check id="751" parent="580" name="product_stock_check">
       <ColNames>stock</ColNames>
       <ObjectId>16498</ObjectId>
       <Predicate>stock &gt;= 0</Predicate>
       <StateNumber>800</StateNumber>
     </check>
-    <column id="744" parent="577" name="id">
+    <column id="752" parent="580" name="id">
       <DefaultExpression>nextval(&apos;product_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -9283,35 +9329,35 @@ false Zulu
       <SequenceId>16492</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="745" parent="577" name="name">
+    <column id="753" parent="580" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>800</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="746" parent="577" name="brand">
+    <column id="754" parent="580" name="brand">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>800</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="747" parent="577" name="price">
+    <column id="755" parent="580" name="price">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>800</StateNumber>
       <StoredType>numeric(12,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <column id="748" parent="577" name="stock">
+    <column id="756" parent="580" name="stock">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>800</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="749" parent="577" name="product_pkey">
+    <index id="757" parent="580" name="product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16504</ObjectId>
@@ -9320,7 +9366,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="750" parent="577" name="product_pkey">
+    <key id="758" parent="580" name="product_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16505</ObjectId>
       <Primary>1</Primary>

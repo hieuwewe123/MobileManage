@@ -8,6 +8,7 @@ public class InvoiceDetail {
     private int productId;
     private int quantity;
     private BigDecimal unitPrice;
+    private String productName; // Thêm để hiển thị tên sản phẩm
 
     public InvoiceDetail() {
     }
@@ -58,6 +59,19 @@ public class InvoiceDetail {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    // Phương thức tính tổng tiền cho dòng này
+    public BigDecimal getLineTotal() {
+        return unitPrice.multiply(new BigDecimal(quantity));
     }
 }
 

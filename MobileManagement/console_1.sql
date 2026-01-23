@@ -332,139 +332,178 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION add_invoice(
-    p_customer_id INTEGER,
-    p_total_amount DECIMAL(12,2)
-) RETURNS INTEGER LANGUAGE plpgsql AS $$
+-- ========================================
+-- INVOICE MANAGEMENT FUNCTIONS & PROCEDURES
+-- ========================================
+
+-- 1. Function: Tạo hóa đơn mới (trả về ID hoặc -1 nếu lỗi)
+CREATE OR REPLACE FUNCTION add_invoice(p_customer_id INT)
+RETURNS INT AS $$
 DECLARE
-    new_id INTEGER;
+    new_invoice_id INT;
 BEGIN
-    INSERT INTO invoice (customer_id, total_amount)
-    VALUES (p_customer_id, p_total_amount)
-    RETURNING id INTO new_id;
-    RETURN new_id;
-END;
-$$;
-
-CREATE OR REPLACE PROCEDURE add_invoice_detail(
-    p_invoice_id INTEGER,
-    p_product_id INTEGER,
-    p_quantity INTEGER,
-    p_unit_price DECIMAL(12,2)
-) LANGUAGE plpgsql AS $$
-BEGIN
-    INSERT INTO invoice_detail (invoice_id, product_id, quantity, unit_price)
-    VALUES (p_invoice_id, p_product_id, p_quantity, p_unit_price);
-
-    UPDATE product
-    SET stock = stock - p_quantity
-    WHERE id = p_product_id AND stock >= p_quantity;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Không đủ tồn kho cho sản phẩm ID %', p_product_id;
+    IF NOT EXISTS (SELECT 1 FROM customer WHERE id = p_customer_id) THEN
+        RETURN -1;
     END IF;
+    
+    INSERT INTO invoice (customer_id, created_at, total_amount)
+    VALUES (p_customer_id, NOW(), 0)
+    RETURNING id INTO new_invoice_id;
+    
+    RETURN new_invoice_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Procedure: Thêm chi tiết hóa đơn (tự động cập nhật stock + total)
+CREATE OR REPLACE PROCEDURE add_invoice_detail(
+    IN p_invoice_id INT,
+    IN p_product_id INT,
+    IN p_quantity INT,
+    IN p_unit_price NUMERIC
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    BEGIN
+        -- Thêm chi tiết hóa đơn
+        INSERT INTO invoice_detail (invoice_id, product_id, quantity, unit_price)
+        VALUES (p_invoice_id, p_product_id, p_quantity, p_unit_price);
+        
+        -- Cập nhật tồn kho sản phẩm
+        UPDATE product 
+        SET stock = stock - p_quantity
+        WHERE id = p_product_id;
+        
+        -- Cập nhật tổng tiền hóa đơn (tính lại từ tất cả invoice_detail)
+        UPDATE invoice
+        SET total_amount = COALESCE((
+            SELECT SUM(quantity * unit_price)
+            FROM invoice_detail
+            WHERE invoice_id = p_invoice_id
+        ), 0)
+        WHERE id = p_invoice_id;
+        
+    EXCEPTION WHEN OTHERS THEN
+        RAISE EXCEPTION 'Lỗi khi thêm chi tiết hóa đơn: %', SQLERRM;
+    END;
 END;
 $$;
 
+-- 3. Function: Lấy tất cả hóa đơn
 CREATE OR REPLACE FUNCTION get_all_invoices()
-    RETURNS TABLE (
-                      id INTEGER,
-                      customer_id INTEGER,
-                      customer_name VARCHAR(100),
-                      created_at TIMESTAMP,
-                      total_amount DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+RETURNS TABLE(id INT, customer_id INT, created_at TIMESTAMP, total_amount NUMERIC, customer_name VARCHAR) AS $$
 BEGIN
     RETURN QUERY
-        SELECT i.id, i.customer_id, c.name AS customer_name, i.created_at, i.total_amount
-        FROM invoice i
-                 JOIN customer c ON i.customer_id = c.id
-        ORDER BY i.created_at DESC;
+    SELECT 
+        i.id,
+        i.customer_id,
+        i.created_at,
+        i.total_amount,
+        c.name as customer_name
+    FROM invoice i
+    LEFT JOIN customer c ON i.customer_id = c.id
+    ORDER BY i.id DESC;
 END;
-$$;
+$$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION search_invoices_by_customer(p_keyword VARCHAR)
-    RETURNS TABLE (
-                      id INTEGER,
-                      customer_id INTEGER,
-                      customer_name VARCHAR(100),
-                      created_at TIMESTAMP,
-                      total_amount DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+-- 4. Function: Tìm kiếm theo tên khách hàng
+CREATE OR REPLACE FUNCTION search_invoices_by_customer(p_keyword TEXT)
+RETURNS TABLE(id INT, customer_id INT, created_at TIMESTAMP, total_amount NUMERIC, customer_name VARCHAR) AS $$
 BEGIN
     RETURN QUERY
-        SELECT i.id, i.customer_id, c.name AS customer_name, i.created_at, i.total_amount
-        FROM invoice i
-                 JOIN customer c ON i.customer_id = c.id
-        WHERE c.name ILIKE '%' || COALESCE(p_keyword, '') || '%'
-        ORDER BY i.created_at DESC;
+    SELECT 
+        i.id,
+        i.customer_id,
+        i.created_at,
+        i.total_amount,
+        c.name as customer_name
+    FROM invoice i
+    LEFT JOIN customer c ON i.customer_id = c.id
+    WHERE LOWER(c.name) LIKE LOWER('%' || p_keyword || '%')
+    ORDER BY i.id DESC;
 END;
-$$;
--- Thống kê tổng doanh thu theo ngày
+$$ LANGUAGE plpgsql;
+
+-- 5. Function: Tìm kiếm theo ngày/tháng/năm (hỗ trợ format: YYYY-MM-DD, YYYY-MM, YYYY)
+CREATE OR REPLACE FUNCTION search_invoices_by_date(p_date_str TEXT)
+RETURNS TABLE(id INT, customer_id INT, created_at TIMESTAMP, total_amount NUMERIC, customer_name VARCHAR) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        i.id,
+        i.customer_id,
+        i.created_at,
+        i.total_amount,
+        c.name as customer_name
+    FROM invoice i
+    LEFT JOIN customer c ON i.customer_id = c.id
+    WHERE TO_CHAR(i.created_at, 'YYYY-MM-DD') LIKE p_date_str || '%'
+       OR TO_CHAR(i.created_at, 'YYYY-MM') = p_date_str
+       OR TO_CHAR(i.created_at, 'YYYY') = p_date_str
+    ORDER BY i.id DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 6. Function: Doanh thu theo ngày
 CREATE OR REPLACE FUNCTION get_revenue_by_day()
-    RETURNS TABLE (
-                      ngay DATE,
-                      tong_doanh_thu DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+RETURNS TABLE(ngay DATE, tong_doanh_thu NUMERIC) AS $$
 BEGIN
     RETURN QUERY
-        SELECT DATE(i.created_at) AS ngay,
-               SUM(i.total_amount) AS tong_doanh_thu
-        FROM invoice i
-        GROUP BY DATE(i.created_at)
-        ORDER BY ngay DESC;
+    SELECT 
+        DATE(i.created_at) as ngay,
+        SUM(i.total_amount) as tong_doanh_thu
+    FROM invoice i
+    GROUP BY DATE(i.created_at)
+    ORDER BY ngay DESC;
 END;
-$$;
+$$ LANGUAGE plpgsql;
 
--- Thống kê tổng doanh thu theo tháng
+-- 7. Function: Doanh thu theo tháng
 CREATE OR REPLACE FUNCTION get_revenue_by_month()
-    RETURNS TABLE (
-                      thang TEXT,
-                      tong_doanh_thu DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+RETURNS TABLE(thang VARCHAR, tong_doanh_thu NUMERIC) AS $$
 BEGIN
     RETURN QUERY
-        SELECT TO_CHAR(i.created_at, 'YYYY-MM') AS thang,
-               SUM(i.total_amount) AS tong_doanh_thu
-        FROM invoice i
-        GROUP BY TO_CHAR(i.created_at, 'YYYY-MM')
-        ORDER BY thang DESC;
+    SELECT 
+        TO_CHAR(i.created_at, 'YYYY-MM') as thang,
+        SUM(i.total_amount) as tong_doanh_thu
+    FROM invoice i
+    GROUP BY TO_CHAR(i.created_at, 'YYYY-MM')
+    ORDER BY thang DESC;
 END;
-$$;
+$$ LANGUAGE plpgsql;
 
--- Thống kê tổng doanh thu theo năm
+-- 8. Function: Doanh thu theo năm
 CREATE OR REPLACE FUNCTION get_revenue_by_year()
-    RETURNS TABLE (
-                      nam TEXT,
-                      tong_doanh_thu DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+RETURNS TABLE(nam VARCHAR, tong_doanh_thu NUMERIC) AS $$
 BEGIN
     RETURN QUERY
-        SELECT TO_CHAR(i.created_at, 'YYYY') AS nam,
-               SUM(i.total_amount) AS tong_doanh_thu
-        FROM invoice i
-        GROUP BY TO_CHAR(i.created_at, 'YYYY')
-        ORDER BY nam DESC;
+    SELECT 
+        TO_CHAR(i.created_at, 'YYYY') as nam,
+        SUM(i.total_amount) as tong_doanh_thu
+    FROM invoice i
+    GROUP BY TO_CHAR(i.created_at, 'YYYY')
+    ORDER BY nam DESC;
 END;
-$$;
+$$ LANGUAGE plpgsql;
 
--- Tìm kiếm hóa đơn theo ngày/tháng/năm (gần đúng)
-CREATE OR REPLACE FUNCTION search_invoices_by_date(p_date_str VARCHAR)
-    RETURNS TABLE (
-                      id INTEGER,
-                      customer_id INTEGER,
-                      customer_name VARCHAR(100),
-                      created_at TIMESTAMP,
-                      total_amount DECIMAL(12,2)
-                  ) LANGUAGE plpgsql AS $$
+-- 9. Function: Trigger cập nhật tổng tiền khi xóa chi tiết
+CREATE OR REPLACE FUNCTION after_delete_invoice_detail()
+RETURNS TRIGGER AS $$
 BEGIN
-    RETURN QUERY
-        SELECT i.id, i.customer_id, c.name AS customer_name, i.created_at, i.total_amount
-        FROM invoice i
-                 JOIN customer c ON i.customer_id = c.id
-        WHERE TO_CHAR(i.created_at, 'YYYY-MM-DD') ILIKE '%' || COALESCE(p_date_str, '') || '%'
-           OR TO_CHAR(i.created_at, 'YYYY-MM') ILIKE '%' || COALESCE(p_date_str, '') || '%'
-           OR TO_CHAR(i.created_at, 'YYYY') ILIKE '%' || COALESCE(p_date_str, '') || '%'
-        ORDER BY i.created_at DESC;
+    UPDATE invoice
+    SET total_amount = COALESCE((
+        SELECT SUM(quantity * unit_price)
+        FROM invoice_detail
+        WHERE invoice_id = OLD.invoice_id
+    ), 0)
+    WHERE id = OLD.invoice_id;
+    
+    RETURN OLD;
 END;
-$$;
+$$ LANGUAGE plpgsql;
+
+-- 10. Trigger: Tự động cập nhật tổng tiền khi xóa
+CREATE TRIGGER after_delete_invoice_detail
+AFTER DELETE ON invoice_detail
+FOR EACH ROW
+EXECUTE FUNCTION after_delete_invoice_detail();

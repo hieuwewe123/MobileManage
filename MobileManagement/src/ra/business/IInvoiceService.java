@@ -1,21 +1,23 @@
 package ra.business;
 
 import ra.model.Invoice;
+import ra.model.InvoiceDetail;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 public interface IInvoiceService {
 
-    int createInvoice(int customerId, BigDecimal totalAmount);
+    int createInvoice(int customerId);
 
-    void addDetail(int invoiceId, int productId, int quantity, BigDecimal unitPrice);
+    boolean addDetail(int invoiceId, int productId, int quantity);
 
     List<Invoice> getAll();
 
     List<Invoice> searchByCustomer(String keyword);
-
+    
+    List<InvoiceDetail> getInvoiceDetails(int invoiceId);
+    
     // Thêm cho tìm kiếm theo ngày/tháng/năm
     List<Invoice> searchByDate(String dateStr);
 
