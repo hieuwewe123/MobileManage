@@ -50,7 +50,7 @@ public class InvoiceView {
         if (newInvoiceId > 0) {
             System.out.println("→ Thêm hóa đơn thành công! ID hóa đơn mới: " + newInvoiceId);
         } else {
-            System.out.println("→ Thêm hóa đơn thất bại! Kiểm tra ID khách hàng hoặc dữ liệu.");
+            System.out.println("→ Thêm hóa đơn thất bại! Kiểm tra lại ID khách hàng (có thể khách hàng không tồn tại hoặc đã bị xóa).");
         }
     }
 

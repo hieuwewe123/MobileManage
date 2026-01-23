@@ -126,7 +126,7 @@ public class InvoiceDAOImpl implements IInvoiceDAO {
             cs.execute();
             return cs.getInt(1);
         } catch (SQLException e) {
-            System.err.println("Lỗi thêm hóa đơn: " + e.getMessage());
+//            System.err.println("Lỗi thêm hóa đơn: " + e.getMessage());
             return -1;
         }
     }
@@ -143,7 +143,7 @@ public class InvoiceDAOImpl implements IInvoiceDAO {
             cs.setBigDecimal(4, unitPrice);
             cs.execute();
         } catch (SQLException e) {
-            System.err.println("Lỗi thêm chi tiết hóa đơn: " + e.getMessage());
+//            System.err.println("Lỗi thêm chi tiết hóa đơn: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
