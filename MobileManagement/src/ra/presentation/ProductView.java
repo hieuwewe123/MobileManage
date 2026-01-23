@@ -1,7 +1,6 @@
 package ra.presentation;
 
 import ra.business.IProductService;
-import ra.business.impl.ProductServiceImpl;
 import ra.model.Product;
 
 import java.math.BigDecimal;
@@ -12,73 +11,52 @@ public class ProductView {
 
     private final IProductService productService;
     private final Scanner sc = new Scanner(System.in);
+
     public ProductView(IProductService productService) {
         this.productService = productService;
     }
+
     public void showProductManagement() {
         while (true) {
-            System.out.println("\n========== QUẢN LÝ SẢN PHẨM ==========");
-            System.out.println("1. Hiển thị tất cả sản phẩm");
-            System.out.println("2. Tìm kiếm sản phẩm (theo tên/brand)");
-            System.out.println("3. Tìm kiếm theo khoảng giá");
-            System.out.println("4. Thêm sản phẩm mới");
-            System.out.println("5. Cập nhật sản phẩm");
-            System.out.println("6. Xóa sản phẩm");
-            System.out.println("0. Quay lại menu chính");
+            System.out.println("\n=====================================");
+            System.out.println("   QUẢN LÝ SẢN PHẨM ĐIỆN THOẠI   ");
+            System.out.println("=====================================");
+            System.out.println("1. Hiển thị danh sách sản phẩm");
+            System.out.println("2. Thêm sản phẩm mới");
+            System.out.println("3. Cập nhật thông tin sản phẩm");
+            System.out.println("4. Xóa sản phẩm theo ID");
+            System.out.println("5. Tìm kiếm theo khoảng giá");
+            System.out.println("6. Tìm kiếm theo Brand");
+            System.out.println("7. Tìm kiếm theo tồn kho");
+            System.out.println("8. Quay lại menu chính");
+            System.out.println("=====================================");
             System.out.print("Nhập lựa chọn: ");
 
-            int choice = getValidInt();
+            int choice = getValidChoice(1, 8);
 
             switch (choice) {
-                case 1:
-                    displayAllProducts();
-                    break;
-                case 2:
-                    searchProducts();
-                    break;
-                case 3:
-                    searchByPriceRange();
-                    break;
-                case 4:
-                    addNewProduct();
-                    break;
-                case 5:
-                    updateProduct();
-                    break;
-                case 6:
-                    deleteProduct();
-                    break;
-                case 7:
-                    searchProductsInStock();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ!");
+                case 1 -> displayAllProducts();
+                case 2 -> addNewProduct();
+                case 3 -> updateProduct();
+                case 4 -> deleteProduct();
+                case 5 -> searchByPriceRange();
+                case 6 -> searchProducts();
+                case 7 -> searchProductsInStock();
+                case 8 -> { return; }
             }
         }
     }
-    private void searchProductsInStock() {
-        System.out.print("Nhập từ khóa tìm sản phẩm còn hàng: ");
-        String keyword = sc.nextLine().trim();
-        List<Product> result = productService.searchByNameAndInStock(keyword);
-        if (result.isEmpty()) {
-            System.out.println("Không tìm thấy sản phẩm nào còn hàng phù hợp!");
-        } else {
-            System.out.println("Kết quả sản phẩm còn hàng:");
-            printProductTable(result);
-        }
-    }
+
     private void displayAllProducts() {
         List<Product> products = productService.getAllProducts();
-        printProductTable(products);
+        printProductTable(products, "DANH SÁCH SẢN PHẨM");
     }
 
     private void searchProducts() {
-        System.out.print("Nhập từ khóa tìm kiếm: ");
+        System.out.print("Nhập từ khóa (tên hoặc brand): ");
         String keyword = sc.nextLine().trim();
         List<Product> result = productService.searchByKeyword(keyword);
-        printProductTable(result);
+        printProductTable(result, "KẾT QUẢ TÌM KIẾM");
     }
 
     private void searchByPriceRange() {
@@ -88,7 +66,14 @@ public class ProductView {
         BigDecimal max = getValidBigDecimal();
 
         List<Product> result = productService.getByPriceRange(min, max);
-        printProductTable(result);
+        printProductTable(result, "SẢN PHẨM TRONG KHOẢNG GIÁ");
+    }
+
+    private void searchProductsInStock() {
+        System.out.print("Nhập từ khóa tìm sản phẩm còn hàng: ");
+        String keyword = sc.nextLine().trim();
+        List<Product> result = productService.searchByNameAndInStock(keyword);
+        printProductTable(result, "SẢN PHẨM CÒN HÀNG");
     }
 
     private void addNewProduct() {
@@ -177,14 +162,16 @@ public class ProductView {
         }
     }
 
-    // Hiển thị bảng sản phẩm
-    private void printProductTable(List<Product> products) {
+    private void printProductTable(List<Product> products, String title) {
         if (products.isEmpty()) {
             System.out.println("Không có sản phẩm nào!");
             return;
         }
 
+        System.out.println("\n" + title);
+        System.out.println("┌─────┬───────────────────────────────────────┬──────────────┬───────────────┬────────┐");
         System.out.println("│ ID  │ Tên sản phẩm                          │ Thương hiệu  │ Giá bán       │ Tồn kho│");
+        System.out.println("├─────┼───────────────────────────────────────┼──────────────┼───────────────┼────────┤");
 
         for (Product p : products) {
             System.out.printf("│ %-3d │ %-37s │ %-12s │ %,13.0f │ %6d │\n",
@@ -193,6 +180,8 @@ public class ProductView {
                     p.getPrice(),
                     p.getStock());
         }
+
+        System.out.println("└─────┴───────────────────────────────────────┴──────────────┴───────────────┴────────┘");
     }
 
     private void printSingleProduct(Product p) {
@@ -222,6 +211,18 @@ public class ProductView {
         while (true) {
             try {
                 return new BigDecimal(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Vui lòng nhập số hợp lệ: ");
+            }
+        }
+    }
+
+    private int getValidChoice(int min, int max) {
+        while (true) {
+            try {
+                int choice = Integer.parseInt(sc.nextLine().trim());
+                if (choice >= min && choice <= max) return choice;
+                System.out.printf("Lựa chọn không hợp lệ! Nhập từ %d đến %d: ", min, max);
             } catch (NumberFormatException e) {
                 System.out.print("Vui lòng nhập số hợp lệ: ");
             }

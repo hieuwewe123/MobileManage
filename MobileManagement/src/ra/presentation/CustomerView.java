@@ -1,7 +1,6 @@
 package ra.presentation;
 
 import ra.business.ICustomerService;
-import ra.business.impl.CustomerServiceImpl;
 import ra.model.Customer;
 
 import java.util.List;
@@ -15,41 +14,42 @@ public class CustomerView {
     public CustomerView(ICustomerService customerService) {
         this.customerService = customerService;
     }
+
     public void showCustomerManagement() {
         while (true) {
-            System.out.println("\n========== QUẢN LÝ KHÁCH HÀNG ==========");
-            System.out.println("1. Hiển thị tất cả khách hàng");
-            System.out.println("2. Tìm kiếm khách hàng (tên/sđt/email)");
-            System.out.println("3. Thêm khách hàng mới");
-            System.out.println("4. Cập nhật khách hàng");
-            System.out.println("5. Xóa khách hàng");
-            System.out.println("0. Quay lại menu chính");
+            System.out.println("\n=====================================");
+            System.out.println("   QUẢN LÝ KHÁCH HÀNG   ");
+            System.out.println("=====================================");
+            System.out.println("1. Hiển thị danh sách khách hàng");
+            System.out.println("2. Thêm khách hàng mới");
+            System.out.println("3. Cập nhật thông tin khách hàng");
+            System.out.println("4. Xóa khách hàng theo ID");
+            System.out.println("5. Quay lại menu chính");
+            System.out.println("=====================================");
             System.out.print("Nhập lựa chọn: ");
 
-            int choice = getValidInt();
+            int choice = getValidChoice(1, 5);
 
             switch (choice) {
                 case 1 -> displayAllCustomers();
-                case 2 -> searchCustomers();
-                case 3 -> addNewCustomer();
-                case 4 -> updateCustomer();
-                case 5 -> deleteCustomer();
-                case 0 -> { return; }
-                default -> System.out.println("Lựa chọn không hợp lệ!");
+                case 2 -> addNewCustomer();
+                case 3 -> updateCustomer();
+                case 4 -> deleteCustomer();
+                case 5 -> { return; }
             }
         }
     }
 
     private void displayAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
-        printCustomerTable(customers);
+        printCustomerTable(customers, "DANH SÁCH KHÁCH HÀNG");
     }
 
     private void searchCustomers() {
-        System.out.print("Nhập từ khóa tìm kiếm: ");
+        System.out.print("Nhập từ khóa tìm kiếm (tên/SĐT/email): ");
         String keyword = sc.nextLine().trim();
         List<Customer> result = customerService.searchCustomers(keyword);
-        printCustomerTable(result);
+        printCustomerTable(result, "KẾT QUẢ TÌM KIẾM KHÁCH HÀNG");
     }
 
     private void addNewCustomer() {
@@ -138,25 +138,33 @@ public class CustomerView {
         }
     }
 
-    private void printCustomerTable(List<Customer> customers) {
+    private void printCustomerTable(List<Customer> customers, String title) {
         if (customers.isEmpty()) {
             System.out.println("Không có khách hàng nào!");
             return;
         }
-        System.out.println("│ ID  │ Tên khách hàng               │ SĐT         │ Email                  │ Địa chỉ               │");
+
+        System.out.println("\n" + title);
+        System.out.println("┌─────┬───────────────────────────────────────┬───────────────┬────────────────────────────┬───────────────────────┐");
+        System.out.println("│ ID  │ Tên khách hàng                        │ SĐT           │ Email                      │ Địa chỉ               │");
+        System.out.println("├─────┼───────────────────────────────────────┼───────────────┼────────────────────────────┼───────────────────────┤");
+
         for (Customer c : customers) {
-            System.out.printf("│ %-3d │ %-28s │ %-11s │ %-22s │ %-21s │\n",
-                    c.getId(), truncate(c.getName(), 28),
-                    c.getPhone(), truncate(c.getEmail(), 22), truncate(c.getAddress(), 21));
+            System.out.printf("│ %-3d │ %-37s │ %-13s │ %-26s │ %-21s │\n",
+                    c.getId(), truncate(c.getName(), 37),
+                    c.getPhone(), truncate(c.getEmail() != null ? c.getEmail() : "", 26),
+                    truncate(c.getAddress() != null ? c.getAddress() : "", 21));
         }
+
+        System.out.println("└─────┴───────────────────────────────────────┴───────────────┴────────────────────────────┴───────────────────────┘");
     }
 
     private void printSingleCustomer(Customer c) {
         System.out.println("ID: " + c.getId());
         System.out.println("Tên: " + c.getName());
         System.out.println("SĐT: " + c.getPhone());
-        System.out.println("Email: " + c.getEmail());
-        System.out.println("Địa chỉ: " + c.getAddress());
+        System.out.println("Email: " + (c.getEmail() != null ? c.getEmail() : ""));
+        System.out.println("Địa chỉ: " + (c.getAddress() != null ? c.getAddress() : ""));
     }
 
     private String truncate(String str, int maxLength) {
@@ -171,6 +179,18 @@ public class CustomerView {
                 return Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.print("Vui lòng nhập số nguyên hợp lệ: ");
+            }
+        }
+    }
+
+    private int getValidChoice(int min, int max) {
+        while (true) {
+            try {
+                int choice = Integer.parseInt(sc.nextLine().trim());
+                if (choice >= min && choice <= max) return choice;
+                System.out.printf("Lựa chọn không hợp lệ! Nhập từ %d đến %d: ", min, max);
+            } catch (NumberFormatException e) {
+                System.out.print("Vui lòng nhập số hợp lệ: ");
             }
         }
     }

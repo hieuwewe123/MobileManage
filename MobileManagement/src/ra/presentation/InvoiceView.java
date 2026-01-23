@@ -13,27 +13,28 @@ public class InvoiceView {
     private final IInvoiceService invoiceService = new InvoiceServiceImpl();
     private final Scanner sc = new Scanner(System.in);
 
+    public InvoiceView(InvoiceServiceImpl invoiceService) {
+    }
+
     public void showInvoiceManagement() {
         while (true) {
-            System.out.println("\n========== GIAO DIỆN QUẢN LÝ THÔNG TIN MUA BÁN ==========");
-            System.out.println("1. Thêm mới đơn hàng");
-            System.out.println("2. Hiển thị danh sách hóa đơn");
+            System.out.println("\n=====================================");
+            System.out.println("   QUẢN LÝ HÓA ĐƠN   ");
+            System.out.println("=====================================");
+            System.out.println("1. Hiển thị danh sách hóa đơn");
+            System.out.println("2. Thêm mới hóa đơn");
             System.out.println("3. Tìm kiếm hóa đơn");
-            System.out.println("4. Thống kê doanh thu");
-            System.out.println("0. Quay lại menu chính");
+            System.out.println("4. Quay lại menu chính");
+            System.out.println("=====================================");
             System.out.print("Nhập lựa chọn: ");
 
-            int choice = getValidChoice(0, 4);
+            int choice = getValidChoice(1, 4);
 
             switch (choice) {
-                case 1 -> addNewInvoice();
-                case 2 -> displayAllInvoices();
+                case 1 -> displayAllInvoices();
+                case 2 -> addNewInvoice();
                 case 3 -> searchInvoicesMenu();
-                case 4 -> statisticRevenue();
-                case 0 -> {
-                    System.out.println("Quay lại menu chính...");
-                    return;
-                }
+                case 4 -> { return; }
             }
         }
     }
@@ -154,6 +155,7 @@ public class InvoiceView {
         }
     }
 
+    // Hai hàm này được thêm để fix lỗi "cannot find symbol getValidInt()"
     private int getValidInt() {
         while (true) {
             try {
@@ -169,7 +171,7 @@ public class InvoiceView {
             try {
                 return new BigDecimal(sc.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.print("Vui lòng nhập số tiền hợp lệ: ");
+                System.out.print("Vui lòng nhập số hợp lệ: ");
             }
         }
     }
